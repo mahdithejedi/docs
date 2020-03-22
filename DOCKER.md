@@ -1,4 +1,4 @@
-## important docker commands
+# important docker commands
 
 ```docker run = docker create + docker start```
 
@@ -13,6 +13,8 @@
 #### point 1 : the format of the tag name should follow `YourDockerID / Repo/projectName : Version` for example seyedmm021/redis:lastest 
 
 #### point 2 : you can execute or do any stuff with the tagged docker without specify the docker version eg: `docker run seyedmm021/redis`
+
+#### point 3 : you can rub specific Docker with flaf `-f` like ```docker build -f /PATH/TO/DOCKERFILE```
 <br />
 
 ```docker ps``` show current docker proccess with `-all` or `-a` you can see all the process even which is done
@@ -27,7 +29,7 @@
 ```doker commit -c <COMMAND> <DOCKER_CONTAINER_ID>``` create a image out of a container eg:`docker commit -c 'CMD ["redis-server"]' ef2313dc` which *ef2313dc* is a container
 <br />
 
-## exactly what is a docker continer or image?
+# exactly what is a docker continer or image?
 
 ***prequires***
 
@@ -49,3 +51,37 @@
 
 [*image vs container*](https://stackify.com/docker-image-vs-container-everything-you-need-to-know/)
 
+<br />
+<hr />
+
+# Docker-compose
+
+`docker-compuse up` == docker run image
+
+    `docker-compose up --build` == docker build . + docker run image
+
+
+opposit of **docker-compuse** up we can use 
+
+    `docker-compose down` to down group of dockers 
+
+<hr />
+
+## <font color='yellow'>docker restart policy [yaml]</font>
+
+**Directive:`restart`**
+
+docker-compose decision for restarting or not
+
+
+    "no"/always/on-failure/unless-stopped
+
+<hr />
+
+## <font color='#f8615a'>docker process status(ps) [Cli Commend]</font>
+
+**CliCommend:`ps`**
+
+excatly like docker ps here you can see the status of docker-compose
+
+#### point:need docker-compose.yml file
