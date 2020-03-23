@@ -85,3 +85,12 @@ docker-compose decision for restarting or not
 excatly like docker ps here you can see the status of docker-compose
 
 #### point:need docker-compose.yml file
+
+
+# [Docker volumes](https://docs.docker.com/storage/volumes/)
+
+map from a folder inside of a container to a folder outside of a container the syntacs is like `DOCKER RUN -v /PATH/TO/FOLDER` or `DOCKER RUN --volume /PATH/TO/FOLDER` 
+
+Example: ```DOCKER RUN -p 3000:3000 -v /app/node_modules -v $(pwd):/app <IMAGE_ID>```
+
+exually the **$(pwd):/app** means map /app which is inside of a container to a folder out of container in this exmple which is $(pwd)  although the first -v point to inside the container and you may think it is not usefull but we use that to say :'hey docker please do not override the access of /app for node_modules
