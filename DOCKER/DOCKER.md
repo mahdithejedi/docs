@@ -8,7 +8,7 @@
 
 <br />
 
-```docker buil -t<TAGNAME> <DOCKERPATH>```    this command will build a docker image from *Dockerfile*
+```docker build -t<TAGNAME> <DOCKERPATH>```    this command will build a docker image from *Dockerfile*
 
 #### point 1 : the format of the tag name should follow `YourDockerID / Repo/projectName : Version` for example seyedmm021/redis:lastest 
 
@@ -94,3 +94,12 @@ map from a folder inside of a container to a folder outside of a container the s
 Example: ```DOCKER RUN -p 3000:3000 -v /app/node_modules -v $(pwd):/app <IMAGE_ID>```
 
 exually the **$(pwd):/app** means map /app which is inside of a container to a folder out of container in this exmple which is $(pwd)  although the first -v point to inside the container and you may think it is not usefull but we use that to say :'hey docker please do not override the access of /app for node_modules
+
+
+<hr />
+
+## <font color='lightgreen'>FROM statement [Dockerfile]</font>
+
+eg1: `FROM nginx:latest as nginx`
+
+#### point1: you can use the FROM command with copy eg:`COPY --from=nginx /NGINX/DOCKER/PATH /DESTENATION/PATH
