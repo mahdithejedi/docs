@@ -13,4 +13,4 @@ check the files and directories of a pkg
 show who create a  specific file or directory eg: `dpkg -S /etc/systemd/system` 
 
 ## -i
-install 
+install a deb package
