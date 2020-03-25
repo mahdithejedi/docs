@@ -1,0 +1,1 @@
+show *ALL* the hardware of systems
