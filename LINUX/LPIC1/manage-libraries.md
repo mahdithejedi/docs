@@ -1,0 +1,1 @@
+with **ldd** command you can see the preq lib a specific app by directory 
