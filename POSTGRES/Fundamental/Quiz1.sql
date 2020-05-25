@@ -1,0 +1,6 @@
+-- => POINT 1 <= +-+-+-+-+-+-+-+-+
+-- https://bit.ly/2NxMNgG
+-- actually in 
+-- SELECT DISTINCT COUNT(*) FROM -
+-- it will get the count of * and THE DISTINCT IS DO NOTHING
+-- SO the correct for of doing this is use SELECT COUNT(DISTINCT(*)) FROM - :)))
