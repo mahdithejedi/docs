@@ -1,4 +1,9 @@
 """
+	POINT: not recemended
+	Why? 
+	https://www.oreilly.com/library/view/python-cookbook/0596001673/ch05s23.html
+"""
+"""
 *What is this pattern about?
 The Borg pattern (also known as the Monostate pattern) is a way to
 implement singleton behavior, but instead of having only one instance
