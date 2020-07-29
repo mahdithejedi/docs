@@ -85,9 +85,7 @@ done
 
 if [ -z "${BRANCH}" ]
 then
-	echo " no branch specified!"
-	echo "specify a branch with '-b' of '--branch'"
-	exit 0
+	BRANCH = $(git branch --remote --verbose --no-abbrev --contains | sed -rne 's/^[^\/]*\/([^\ ]+).*$/\1/p' | head -1)
 elif branch_check "${BRANCH}"
 then
 	echo "$BRANCH branch is not exists"
