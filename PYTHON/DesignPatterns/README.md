@@ -5,3 +5,4 @@
 [sourcemaking](https://sourcemaking.com/design_patterns/) <br/>
 [refactoring](https://refactoring.guru/design-patterns) <br/>
 [wikibooks](https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Bridge) <br/>
+[guide python patterns](https://python-patterns.guide/)
