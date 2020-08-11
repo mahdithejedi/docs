@@ -1,0 +1,3 @@
+# What is front-controller design pattern?
+
+The front controller design pattern means that all requests that come for a resource in an application will be handled by a single handler and then dispatched to the appropriate handler for that type of request. The front controller may use other helpers to achieve the dispatching mechanism.<small>[1](https://www.geeksforgeeks.org/front-controller-design-pattern/)</small>
