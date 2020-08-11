@@ -15,4 +15,6 @@
 [courses](https://github.com/prakhar1989/awesome-courses)
 <br />
 [Algorithm](https://github.com/tayllan/awesome-algorithms)
+<br />
+[Linux software](https://github.com/luong-komorebi/Awesome-Linux-Software)
 
