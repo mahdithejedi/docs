@@ -6,3 +6,6 @@
 [refactoring](https://refactoring.guru/design-patterns) <br/>
 [wikibooks](https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Bridge) <br/>
 [guide python patterns](https://python-patterns.guide/)
+
+### Video Course
+[Christopher Okhravi design pattern](https://www.youtube.com/playlist?list=PLrhzvIcii6GNjpARdnO4ueTUAVR9eMBpc)
