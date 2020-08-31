@@ -9,7 +9,13 @@ __do they have to change all the code they write?__
 this is what **bridge** want to say...
 
 
+## Points:
+1.Typically the Implementor interface provides only primitive operations, and Abstraction defines higher-level operations based on these primitives
+<small> Design Patterns: Elements of reusable of Object Oriented Software</small>
+<br/>
+
 ### Resources
 
 [faif](https://github.com/faif/python-patterns/blob/master/patterns/structural/bridge.py)
 [wikibooks](https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Bridge#python)
+[pazdera github gist](https://gist.github.com/pazdera/1173009)
