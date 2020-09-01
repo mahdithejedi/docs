@@ -9,6 +9,9 @@
 
 ## GUI
 [Gooey](https://github.com/chriskiehl/Gooey): Turn any command line into full GUI application
+<br />
+[Dear GUI](https://github.com/hoffstadt/DearPyGui): A GPU Accelerated Python GUI Framework
+<br />
 
 
 ## distributed applications:
