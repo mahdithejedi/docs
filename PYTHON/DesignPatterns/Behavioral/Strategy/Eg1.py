@@ -21,12 +21,12 @@ class Items:
         self.price = price
         self._discount_strategy = discount_strategy
         
-    def calc_price(self):
-        self.price = self._discount_strategy(self.price)
+    def calc_price(self, discount_kwargs = {}):
+        self.price = self._discount_strategy(self.price, **discount_kwargs)
         return self.price
     
     def __repr__(self):
-        return '{}'.format(self.calc_price())
+        return '{}'.format(self.price)
 
 
 # In[4]:
@@ -46,13 +46,17 @@ def holiday_discount(price, discount_per = 0.2):
 # In[6]:
 
 
-black_friday = Items(12, half_discount)
+black_friday = Items(12, half_discount).calc_price()
 print(black_friday)
 
 
 # In[7]:
 
 
-holiday = Items(12000, holiday_discount)
+holiday = Items(12000, holiday_discount).calc_price(
+    discount_kwargs = {
+        'discount_per' : 0.3
+    }
+)
 print(holiday)
 
