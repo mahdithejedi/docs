@@ -14,3 +14,4 @@ In software engineering, behavioral design patterns are design patterns that ide
 | Iterator | traverse a container and access the container's elements(Iteration behavoir should be inside obj)|
 | Observer | provide a callback for notification of events/changes to data |
 | State    | Objects can alter their behavior when internal state of obj changes |
+| Strategy | the strategy pattern is a behavioral software design pattern that enables selecting an algorithm at runtime. Instead of implementing a single algorithm directly, code receives run-time instructions as to which in a family of algorithms to use|
