@@ -10,11 +10,14 @@ d3={10:8,13:22}
 <br />
 and you want to have something like this:
 <br />
+
 ```
-d4={1:2,3:4,5:6,7:9,10:8,13:22}
+d4={1:2,3:4,5:6,7:9,10:8,13:22} 
 ```
 
+
 ## First method(Fastest) : exploit the dict constructor to the hilt, then one update:
+
 ```
 d1={1:2,3:4}
 d2={5:6,7:9}
@@ -53,7 +56,8 @@ d3={10:8,13:22}
 d4 = dict(d1.items() + d2.items() + d3.items())
 ```
 <br />
-***IMPORTANT POINT: this does not work in python 3***
+
+**IMPORTANT POINT: this does not work in python 3**
 
 
 ## 6TH & NEW METHOD: introduce in python 3.9.0a4 
@@ -61,7 +65,8 @@ d4 = dict(d1.items() + d2.items() + d3.items())
 d4 = (d1 | d2) | d3
 ```
 <br />
-***IMPORTANT NOTE: this work just in python 3.9.0a4 and later***
+
+**IMPORTANT NOTE: this work just in python 3.9.0a4 and late**
 
 
 ## 7TH method: Ugly boy!
