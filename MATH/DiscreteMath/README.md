@@ -10,6 +10,9 @@
 <br />
 [Youtube TheTrevTutor](https://www.youtube.com/playlist?list=PLDDGPdw7e6Ag1EIznZ-m-qXu4XX3A0cIz)
 <br />
-
+[saylor Discrete Math](https://learn.saylor.org/course/view.php?id=67)
+<br />
+[ArsDigita University](http://www.aduni.org/courses/discrete/)
+<br />
 ### Sources
 [quora](https://qr.ae/pNAhFF)
