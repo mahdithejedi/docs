@@ -13,8 +13,13 @@
 [Dear GUI](https://github.com/hoffstadt/DearPyGui): A GPU Accelerated Python GUI Framework
 <br />
 
-
 ## distributed applications:
 [Ray](https://github.com/ray-project/ray): Ray is a fast and simple framework for building and running distributed applications.
 
+## validation
+[pydantic](https://github.com/samuelcolvin/pydantic): Data parsing and validation using Python type hints
+<br />
 
+## CLI
+[Pick](https://github.com/wong2/pick): create curses based interactive selection list in the terminal
+<br />
