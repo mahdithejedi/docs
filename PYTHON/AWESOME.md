@@ -23,3 +23,10 @@
 ## CLI
 [Pick](https://github.com/wong2/pick): create curses based interactive selection list in the terminal
 <br />
+
+## Profilers
+[py-spy](https://github.com/benfred/py-spy): Sampling profiler for Python programs
+<br />
+[austin](https://github.com/P403n1x87/austin): Python frame stack sampler for CPython
+<br />
+
