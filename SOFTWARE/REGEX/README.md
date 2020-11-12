@@ -11,7 +11,6 @@
 `.` means EVERYTHING
 <br />
 ## more info 
-<br />
 `+` means ONE or MORE (it should at least have one case)
 <br />
 `*` means NOTHINH or MORE (existence of the charcter is not important _no diffrence if we have char nor not_)
