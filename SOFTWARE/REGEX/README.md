@@ -10,7 +10,7 @@
 ### Wildcare
 `.` means EVERYTHING
 <br />
-## 
+## more info 
 <br />
 `+` means ONE or MORE (it should at least have one case)
 <br />
