@@ -1,7 +1,7 @@
 #!/bin/bash
 
 get_app_name(){
-  echo 'dualVPN'
+  echo 'autoVPN'
 }
 
 get_root_privilege(){
@@ -27,5 +27,5 @@ add_ip_route_rule(){
 get_setting_path(){
   _home_path=$(xdg-user-dir)
   _app_name=$(get_app_name)
-  echo "($_home_path)/.($_app_name)"
+  echo "($_home_path)/.($_app_name).ini"
 }
