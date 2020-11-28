@@ -1,4 +1,4 @@
-## 1. Names should be Intention-Revealing!
+# 1. Names should be Intention-Revealing!
 Names should be increase intention in the code.. beacuse variables doesn't just hold a value, it should show it's value in it's name. 
 It should answer questions such as What it it? Why is it here? or What does it do? how it's used and etc...
 <br />
@@ -10,7 +10,7 @@ Look at the code blow and try to inderstand what is it..
 
 for example do not refer to a group of acounts as _accountlist_ unless it's acctualy a _list_ ! you can refer it a _acounts_ or _account\_group_
 
-## 2. Make meaningful distinctions
+# 2. Make meaningful distinctions
 
 ### 1.avoid number series naming
 you think you have two variabl3  hold somehow the same thing then it's not proper name number after them( like a1, a2)
@@ -40,10 +40,24 @@ you can see both a1 and a2 hold char but it this code redeable? can you understa
 **The programmer should easily distinguish tow vaiable, for example in the absents of conventions what is the diffrent between _moneyAmount_ and money, or _customer_ and _customerInfo_?**
 
 
-## 3. Use Pronounceable Names
+### 3. Use Pronounceable Names
 
 beacuse programming is a social activity and humans can remmember pronounceable names easily it's better to put your variable name if a way it can be pronounce easy for example:
 
 `genymdhms` what does it means? it's a generation date: year, month, day, hours, minute, second) how can you pronounce it? you change this variable name to `generationTimestamp`
 
+
+### 4.Use Searchable Names
+It's improtant to use searchable names. like you have 7 weeks of a day, it's better to put it in a variable like DAYS_OF_WEEK and then use it all over the code
+
+
+## CLASS NAMES
+
+class names should be **NOUN** like _Customer_ or _WikiPage_ avoid works like _Manager_ or _Processor_ beacuse class names should be noun
+
+## Method names
+Method names should be **VERB** or **VERB PHRASE NAMES** like _postPayment_ or _deletePage_
+
+
+# 3- Don't be cute!
 
