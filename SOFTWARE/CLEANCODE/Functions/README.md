@@ -37,3 +37,16 @@ Choosing descriptive names will clarify the design of the module in your mind an
 <br />
 Be consistent in your names. **Use the same phrases, nouns, and verbs in the function  names you choose for your modules**. Consider, for example, the names _includeSetupAndTeardownPages_ , _includeSetupPages_ , _includeSuiteSetupPage_ , and _includeSetupPage_ . The similar phraseology in those names allows the sequence to tell a story. Indeed, if I showed you just the sequence above, you’d ask yourself: “What happened to _includeTeardownPages_ , _includeSuiteTeardownPage_ , and _includeTeardownPage_?” How’s that for being “. . . pretty much what you expected.”
 
+
+## Function Arguments
+The ideal number of arguments for a function is zero (niladic). Next comes one (monadic), followed closely by two (dyadic). Three arguments (triadic) should be avoided where possible. More than three (polyadic) requires very special justification—and then shouldn’t be used anyway
+<br />
+there is _ reasons for this:
+*	it's hard for testing functions with lots of arguments
+*	differentiating the diffrent function with similar input would be hard
+
+as we know arguments are hard, output argumets are harder than that, When we read a function, we are used to the idea of information going in to the function through arguments and out through the return value. We don’t usually expect information to be going out through the arguments. So output arguments often cause us to do a double-take	
+
+
+
+
