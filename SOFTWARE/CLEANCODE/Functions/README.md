@@ -47,6 +47,18 @@ there is _ reasons for this:
 
 as we know arguments are hard, output argumets are harder than that, When we read a function, we are used to the idea of information going in to the function through arguments and out through the return value. We don’t usually expect information to be going out through the arguments. So output arguments often cause us to do a double-take	
 
+## Common Monadic Form
+There is two reasons to pass a single argument into a function:
+*	you may ask a question about an argument ``bool FileIsExists`
+*	transform input to another type and return it in output for eg `openfile` convert a str to a file
 
+remmember there is some Event function with does not return anything for eg: `void passwordAttemptFailedNtimes(int attempts)`
+
+
+## Flag arguments
+Flag arguments are ugly beacuse they do more than one thing, do one thing when they are true and another when they are false, so break them down in two seprate function
+
+## Verbs and Keywords
+We can put input type in Function name in the type of verb/noun for example instead of `write(name)` we can use `writeFields(name)` which make it clear that name if a Field or instead of write `assertEquals` we cab have `assertExpectedEqualsActual(expected, actual)`.
 
 
