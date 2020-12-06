@@ -30,3 +30,7 @@
 [austin](https://github.com/P403n1x87/austin): Python frame stack sampler for CPython
 <br />
 
+## Debugging
+[traceback\_with\_variables](https://github.com/andy-landy/traceback_with_variables): Adds variables to python traceback. Simple, lightweight, controllable. Debug reasons of exceptions by logging or pretty printing colorful variable contexts for each frame in a stacktrace, showing every value. Dump locals environments after errors to console, files, and loggers. Works in Jupyter and IPython. Install with pip or conda.
+<br />
+
