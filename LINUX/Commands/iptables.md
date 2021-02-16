@@ -6,6 +6,8 @@ Each chain is a list of rules which can match a set of packets. Each rule specif
 
 
 ## Some resource
+[**An In-Depth Guide to iptables, the Linux Firewall**](https://www.booleanworld.com/depth-guide-iptables-linux-firewall/)
+<br />
 [easy peasy toturial](https://www.hostinger.com/tutorials/iptables-tutorial)
 <br />
 [explain shell](https://explainshell.com/explain/8/iptables)
