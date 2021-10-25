@@ -46,8 +46,8 @@ func main() {
 		fmt.Print("EXCATLY")
 	case 3:
 		fmt.Print("NO")
-	case int:
-		fmt.Print("YOU CAN declare types in cases!")
+	// case int:
+	// 	fmt.Print("YOU CAN declare types in cases!")
 	default:
 		fmt.Print("HI")
 	}
