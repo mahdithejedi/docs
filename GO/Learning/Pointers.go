@@ -2,23 +2,19 @@ package main
 
 import "fmt"
 
-func zeroval(ival int) {
-	ival = 0
-}
-
-func zeroptr(iptr *int) {
-	*iptr = 0
-}
-
 func main() {
-	i := 1
-	fmt.Println("initial:", i)
+	// * Operator also termed as the dereferencing operator used to declare pointer variable and access the value stored in the address.
+	// & operator termed as address operator used to returns the address of a variable or to access the address of a variable to a pointer.
 
-	zeroval(i)
-	fmt.Println("zeroval:", i)
+	// Declare a pointer
+	// var pointer_NAME *Data_TYPE
 
-	zeroptr(&i)
-	fmt.Println("zeroptr:", i)
+	var s *string // store only the memory addresses of string variables.
+	s_variable := "hi this world is changin"
+	s = &s_variable
+	fmt.Println(*s)
 
-	fmt.Println("pointer:", &i)
+	int_test := 12
+	fmt.Println(&int_test)
+
 }
