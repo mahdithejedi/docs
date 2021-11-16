@@ -1,7 +1,16 @@
 from abc import ABC, abstractmethod
 
 
+class _KEYWORDS:
+    LIMIT = "LIMIT"
+    SELECT = "SELECT"
+    UPDATE = "UPDATE"
+    FROM = "FROM"
+    WHERE = "WHERE"
+
+
 class QueryBuilder(ABC):
+    KEYWORDS = _KEYWORDS
 
     def __init__(self, allow_multiple_query: bool=False) -> None:
         self._allow_multiple_query = allow_multiple_query
@@ -42,14 +51,16 @@ class QueryBuilder(ABC):
 class PostgresqlQueryBuilder(QueryBuilder):
     def select(self, table: str, fields: list = []) -> str:
         self.reset()
-        self._query += "select %s from %s" % (
-            ', '.join(fields) if fields else '*'
+        self._query += "%s %s %s %s" % (
+            self.KEYWORDS.SELECT,
+            ', '.join(fields) if fields else '*',
+            self.KEYWORDS.FROM
             , table
         )
         return self
     
     def where(self, where: dict = {}) -> str:
-        self._query += " where "
+        self._query += " %s " % self.KEYWORDS.WHERE
         for key, value in where.items():
             self._query += ' %s=%s' %(key, value)
             self._query += ","
@@ -58,7 +69,9 @@ class PostgresqlQueryBuilder(QueryBuilder):
 
     def update(self, table: str, sets: dict = {}) -> str:
         self.reset()
-        self._query += " update %s set" % table
+        self._query += " %s %s set" % (
+            self.KEYWORDS.UPDATE,
+            table)
         for key, value in sets.items():
             self._query += " %s=%s" %(key, value)
             self._query += ","
@@ -66,14 +79,17 @@ class PostgresqlQueryBuilder(QueryBuilder):
         return self
 
     def limit(self, limit_count: int = 0) -> str:
-        self._query += " LIMIT %s" % limit_count
+        self._query += " %s %s" % (
+            self.KEYWORDS.LIMIT,
+            limit_count)
         return self
 
+
+class OracleKEYWORDS(_KEYWORDS):
+    LIMIT = "offset"
 
 class OracleQueryBuilder(PostgresqlQueryBuilder):
-    def limit(self, limit_count: int = 0) -> str:
-        self._query += " OFFSET %s" % limit_count()
-        return self
+    KEYWORDS = OracleKEYWORDS
 
 
 class ORM:
