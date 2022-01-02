@@ -1,6 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
+
+func Incrs(a *int) {
+	fmt.Print("****\n")
+	fmt.Print(a)
+	fmt.Print(reflect.TypeOf(a))
+	fmt.Print("\n=======\n")
+	fmt.Print(*a)
+	fmt.Print(reflect.TypeOf(*a))
+	*a++
+}
 
 func main() {
 	// * Operator also termed as the dereferencing operator used to declare pointer variable and access the value stored in the address.
@@ -16,5 +29,7 @@ func main() {
 
 	int_test := 12
 	fmt.Println(&int_test)
+	Incrs(&int_test)
+	fmt.Printf("\n After Increase %v", int_test)
 
 }
