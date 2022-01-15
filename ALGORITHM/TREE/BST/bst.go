@@ -29,11 +29,54 @@ func (n *Node) Insert(new_value int) {
 
 }
 
+func (n *Node) ListInsert(new_values []int) {
+	for _, element := range new_values {
+		n.Insert(element)
+	}
+}
+
+func (n *Node) Reset() {
+	n.value = 0
+	n.left = nil
+	n.right = nil
+}
+
+func (n *Node) Search(search_value int) (*Node, bool) {
+	if n.value == search_value {
+		return n, true
+	}
+	if n.value > search_value && n.left != nil {
+		return n.left.Search(search_value)
+	}
+	if n.value < search_value && n.right != nil {
+		return n.right.Search(search_value)
+	}
+	return &Node{}, false
+}
+
+// func (n *Node) Delete(delete_value int) bool {
+// 	node, exitence := n.Search(delete_value)
+// 	if exitence != false {
+// 		return false
+// 	}
+// 	if node.left == nil && n.right == nil {
+// 		node.value = 0
+// 	} else if node.left != nil && node.right == nil {
+// 		node = node.left
+// 	} else if node.right != nil && node.left == nil{
+// 		node = node.right
+// 	}
+// 	else{
+
+// 	}
+
+// }
+
 func main() {
 	n := Node{}
-	n.Insert(12)
-	n.Insert(10)
-	n.Insert(14)
-	n.Insert(11)
-	fmt.Println(n.left.right.value)
+	node_values := []int{100, 500, 20, 10, 30, 40}
+	n.ListInsert(node_values)
+	node, existence := n.Search(85)
+	fmt.Print(node.value, existence)
+
 }
