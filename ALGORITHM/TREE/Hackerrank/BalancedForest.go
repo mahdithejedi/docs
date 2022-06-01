@@ -26,7 +26,7 @@ func (n *Node) SearchByNumber(number int32) *Node {
 	for _, child := range n.nodes {
 		child.SearchByNumber(number)
 	}
-	return nil
+	return n
 }
 
 func (n *Node) InsertByNumber(parent_node_number int32, number int32, value int32) bool {
@@ -50,7 +50,7 @@ func balancedForest(c []int32, edges [][]int32) *Node {
 	values := c[1:]
 	for index, _ := range values {
 		node.InsertByNumber(
-			edges[index][0], edges[index][1], c[index],
+			edges[index][0], edges[index][1], c[index+1],
 		)
 	}
 	return node
