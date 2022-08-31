@@ -22,3 +22,11 @@ select count(*),
 	           || ' minutes')::interval AS ten_min_timestamp
 	       from orders_order o inner join markets_market mm on mm.id = o.market_id where
 	    cancel_by = 'limit_bot' group by ten_min_timestamp
+
+-- Convert TimeZone in 10 minutes interval
+select count(*),
+       date_trunc('hour', o.created_at) at time zone 'Iran' +
+       (((date_part('minute', o.created_at)::integer / 10::integer) * 10::integer)
+	           || ' minutes')::interval AS ten_min_timestamp
+	       from orders_order o inner join markets_market mm on mm.id = o.market_id where
+	    cancel_by = 'limit_bot' group by ten_min_timestamp order by ten_min_timestamp;
