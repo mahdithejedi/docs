@@ -11,11 +11,32 @@ type Link struct {
 	Text string
 }
 
-func Parser(r io.Reader) ([]Link, error){
-	doc, err := html.Parse(r)
-	if err != nil{
-		return nil, err
+func Parser(r io.Reader) error {
+	tokens := html.NewTokenizer(r)
+	error := tokenize(tokens)
+	if error != nil{
+		return error
 	}
-	fmt.Println(doc)
-	return []Link{}, nil
+	return nil
+}
+
+func tokenize(tokens *html.Tokenizer) error{
+	for{
+		tt := tokens.Next()
+		switch tt{
+		case html.ErrorToken:
+			return tokens.Err()
+		case html.TextToken:
+			processTag(tokens.Text())
+		case html.StartTagToken, html.EndTagToken:
+			tn, _ := tokens.TagName()
+			processTag(tn)
+		default:
+			continue
+		}
+	}
+}
+
+func processTag(tag []byte){
+	fmt.Println(string(tag))
 }

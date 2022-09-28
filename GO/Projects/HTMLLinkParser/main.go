@@ -19,7 +19,7 @@ func main(){
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	_, err = parser.Parser(fileData)
+	err = parser.Parser(fileData)
 	if err != nil{
 		log.Fatal(err.Error())
 	}
