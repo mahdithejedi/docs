@@ -3,7 +3,6 @@ package parser
 import (
 	"fmt"
 	"golang.org/x/net/html"
-	"io"
 )
 
 type Link struct {
@@ -11,32 +10,43 @@ type Link struct {
 	Text string
 }
 
-func Parser(r io.Reader) error {
+func Parser(htmlLink stru) error {
 	tokens := html.NewTokenizer(r)
-	error := tokenize(tokens)
-	if error != nil{
+	error := tokenize(tokens, urlsChain)
+	if error != nil {
 		return error
 	}
 	return nil
 }
 
-func tokenize(tokens *html.Tokenizer) error{
-	for{
+func getLink(tokens *html.Tokenizer, urlChain chan string) {
+	key, value, moreAttrs := tokens.TagAttr()
+	if string(key) == "href" {
+		fmt.Println("Going to push " + string(value))
+		urlChain <- string(value)
+		fmt.Println("pushed!")
+		return
+	}
+	if moreAttrs {
+		getLink(tokens, urlChain)
+	} else {
+		return
+	}
+}
+
+func tokenize(tokens *html.Tokenizer, urlChain chan string) error {
+	for {
 		tt := tokens.Next()
-		switch tt{
+		switch tt {
 		case html.ErrorToken:
 			return tokens.Err()
-		case html.TextToken:
-			processTag(tokens.Text())
 		case html.StartTagToken, html.EndTagToken:
-			tn, _ := tokens.TagName()
-			processTag(tn)
+			tagName, hasAttrs := tokens.TagName()
+			if string(tagName) == "a" && hasAttrs {
+				getLink(tokens, urlChain)
+			}
 		default:
 			continue
 		}
 	}
-}
-
-func processTag(tag []byte){
-	fmt.Println(string(tag))
 }
