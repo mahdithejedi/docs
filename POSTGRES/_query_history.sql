@@ -30,3 +30,5 @@ select count(*),
 	           || ' minutes')::interval AS ten_min_timestamp
 	       from orders_order o inner join markets_market mm on mm.id = o.market_id where
 	    cancel_by = 'limit_bot' group by ten_min_timestamp order by ten_min_timestamp;
+-- Last 24 hours order bot limit
+select count(*) from orders_order o where o.limit_dev_insert_bot_id = 68 and o.created_at > now() - interval '24 hours';
