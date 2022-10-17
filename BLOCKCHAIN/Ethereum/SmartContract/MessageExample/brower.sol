@@ -7,7 +7,7 @@ contract Index {
 
     function Inbox(string initialMessage) public {
         //    Constructor which will automatically called on time
-        //     when the contract is created
+        //     when the contra\ct is created
         message = initialMessage;
     }
 
