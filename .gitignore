@@ -151,3 +151,10 @@ gmon.out
 # CPP
 *.out
 *.exe
+
+
+# Smart Contract
+contracts/.placeholder
+test/.placeholder
+build
+node_modules
