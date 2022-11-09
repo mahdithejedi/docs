@@ -1,0 +1,23 @@
+#!/bin/python3.8
+_CONTRACT_PATH = 'contracts/'
+_SOL_PATH = _CONTRACT_PATH + 'Inbox.sol'
+
+
+def _install():
+    import subprocess
+    import sys
+    subprocess.check_call([
+        sys.executable, "-m", "pip", "install", "py-solc"
+    ])
+
+
+def _compile():
+    from solc import compile_files
+    compile_files([_SOL_PATH])
+    # with open(_SOL_PATH) as _file:
+    #     print(_file.read())
+    #     c(_file.read())
+
+
+# _install()
+_compile()
