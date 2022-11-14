@@ -9,7 +9,7 @@ pragma solidity 0.8.17;
 
 pragma solidity 0.8.17;
 
-contract Lottery {
+contract Lottery{
     address payable public manager;
     address payable[] public members;
 
@@ -51,8 +51,7 @@ contract Lottery {
             )
         );
     }
-
-    function getPlayers() public view returns (address payable[] memory){
+    function getPlayers() public view returns(address payable[] memory){
         return members;
     }
 
