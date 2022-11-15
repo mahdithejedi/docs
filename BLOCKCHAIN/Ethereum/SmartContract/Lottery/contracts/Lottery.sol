@@ -29,7 +29,7 @@ contract Lottery{
         members.push(payable(msg.sender));
     }
 
-    function SendMoney() public payable {
+    function SendMoney() public  onyOwner{
         pickWinner().transfer(address(this).balance);
         // Initate new address with zero default element
         members = new address payable[](0);
