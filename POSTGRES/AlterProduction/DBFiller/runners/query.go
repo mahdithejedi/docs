@@ -13,6 +13,10 @@ type DBError struct {
 	counter int
 }
 
+func (e *DBError) GetForRedis() (uint32, string, int) {
+	return e.hash, e.reason, e.counter
+}
+
 var Errors map[string]int
 
 type query func(*sql.DB) (sql.Result, error)
@@ -44,10 +48,11 @@ func hash(s string) uint32 {
 	return h.Sum32()
 }
 
-func CaptureErrors(errors map[uint32]DBError, error error) {
+func CaptureErrors(errors map[uint32]DBError, error error) DBError {
 	hashedError := hash(error.Error())
 	if value, ok := errors[hashedError]; ok {
-		value.counter += 1
+		updateError(&value)
+		errors[hashedError] = value
 	} else {
 		errors[hashedError] = DBError{
 			hash:    hashedError,
@@ -55,4 +60,9 @@ func CaptureErrors(errors map[uint32]DBError, error error) {
 			obj:     error,
 			counter: 1}
 	}
+	return errors[hashedError]
+}
+
+func updateError(er *DBError) {
+	er.counter = er.counter + 1
 }

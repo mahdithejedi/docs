@@ -39,7 +39,7 @@ func main() {
 		var err error
 		for true {
 			err = <-errStream
-			runners.CaptureErrors(ErrorMap, err)
+			helpers.Set(runners.CaptureErrors(ErrorMap, err))
 			fmt.Println("error is", err.Error())
 		}
 	}()
