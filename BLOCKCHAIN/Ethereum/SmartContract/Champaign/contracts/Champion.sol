@@ -4,31 +4,34 @@ pragma solidity ^0.8.9;
 // Uncomment this line to use console.log
 // import "hardhat/console.sol";
 
-contract Lock {
-    uint public unlockTime;
-    address payable public owner;
+contract Champion{
 
-    event Withdrawal(uint amount, uint when);
+    address owner;
 
-    constructor(uint _unlockTime) payable {
-        require(
-            block.timestamp < _unlockTime,
-            "Unlock time should be in the future"
-        );
+    uint8 agreement;
 
-        unlockTime = _unlockTime;
-        owner = payable(msg.sender);
+
+    modifier ownerOnly(){
+        require(msg.sender == owner, 'Only owner can change');
+        _;
+    }
+    modifier agreementCheck(uint8 _agreement){
+        require(_agreement < 100, 'agreement can be between 0 upto 100');
+        _;
     }
 
-    function withdraw() public {
-        // Uncomment this line, and the import of "hardhat/console.sol", to print a log in your terminal
-        // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
-
-        require(block.timestamp >= unlockTime, "You can't withdraw yet");
-        require(msg.sender == owner, "You aren't the owner");
-
-        emit Withdrawal(address(this).balance, block.timestamp);
-
-        owner.transfer(address(this).balance);
+    constructor(uint8 _agreement) agreementCheck(_agreement){
+        agreement = _agreement;
+        owner = msg.sender;
     }
+
+
+    function set_agreement(uint8 new_agreement) public ownerOnly agreementCheck(new_agreement){
+        require(new_agreement < 100, 'new_agreement can be between 0 upto 100');
+        agreement = new_agreement;
+    }
+    function get_agreement() public view returns (uint8){
+        return agreement;
+    }
+
 }
