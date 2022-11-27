@@ -23,6 +23,10 @@ import (
 // Cgroup (Control Group) => what can you do?
 // Location /sys/fs/cgroup => different Cgroup
 
+// Namespace => what can you see?
+// Cgroup (Control Group) => what can you do?
+// Location /sys/fs/cgroup => different Cgroup
+
 func checkError(err error) {
 	if err != nil {
 		log.Fatal(err.Error())
