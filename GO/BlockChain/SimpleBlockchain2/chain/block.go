@@ -9,6 +9,7 @@ import (
 
 type IData interface {
 	GetByte() []byte
+	GetData() string
 }
 
 type block struct {
@@ -30,8 +31,8 @@ func (b *block) setHash() {
 	b.hash = hash[:]
 }
 
-func (b *block) GetData() interface{} {
-	return b.data
+func (b *block) GetData() string {
+	return b.data.GetData()
 }
 
 func New() *blockchain {
