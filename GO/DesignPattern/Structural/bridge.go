@@ -1,17 +1,17 @@
 package main
 
-import (
-	"fmt"
-	"github.com/fatih/color"
-	"log"
-)
-
-func main() {
-	color.Set(color.Red)
-	defer color.Uset()
-	defer func() { fmt.Println("Goodby") }()
-	log.Fatal("You can not use OOP pattern in struct langauge")
-}
+//import (
+//	"fmt"
+//	"github.com/fatih/color"
+//	"log"
+//)
+//
+//func main() {
+//	color.Set(color.Red)
+//	defer color.Uset()
+//	defer func() { fmt.Println("Goodby") }()
+//	log.Fatal("You can not use OOP pattern in struct langauge")
+//}
 
 //
 //import "fmt"
