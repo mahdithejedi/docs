@@ -32,3 +32,14 @@ select count(*),
 	    cancel_by = 'limit_bot' group by ten_min_timestamp order by ten_min_timestamp;
 -- Last 24 hours order bot limit
 select count(*) from orders_order o where o.limit_dev_insert_bot_id = 68 and o.created_at > now() - interval '24 hours';
+
+
+-- Show orders , show 2 by each market
+select * from (
+                  select o.price, o.volume, o.direction, mm.currency_precession, mm.base_currency_precession, mm.name,
+                         ROW_NUMBER() over (PARTITION BY mm.name ORDER BY o.created_at) AS r
+                  from orders_order o
+                           inner join markets_market mm on mm.id = o.market_id
+                  where o.created_at > now() - interval '100 minutes'
+                  ) orders where orders.r < 4;
+
