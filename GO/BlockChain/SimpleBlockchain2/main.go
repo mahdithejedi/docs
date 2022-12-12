@@ -41,7 +41,6 @@ func main() {
 	blockchain.NewBlock(&chainData{data: "Third"})
 	blockchain.NewBlock(&chainData{data: "Fourth"})
 	for _, block := range blockchain.GetBlocks() {
-		//fmt.Println((*block).GetData())
 		pow := chain.NewPOW(block)
 		fmt.Println("block", (*block).GetData(), "validation status", pow.Validate())
 	}

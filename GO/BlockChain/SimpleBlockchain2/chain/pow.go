@@ -19,7 +19,7 @@ const (
 )
 
 const nonceRange uint64 = 100
-const maxNonceWorker uint8 = 100
+const maxNonceWorker uint8 = 3
 
 var wg sync.WaitGroup
 
@@ -42,7 +42,7 @@ const maxNonce = math.MaxUint64
 
 func NewPOW(b *block) *POW {
 	t := big.NewInt(1)
-	//fmt.Println(t.Lsh(t, uint(265-targetBits)))
+	t.Lsh(t, uint(265-targetBits))
 	return &POW{
 		Block:  b,
 		Target: t,
@@ -98,11 +98,9 @@ func (p *POW) proof(from uint64, to uint64) (int, []byte, error) {
 	for from < to {
 		data := p.prepareData(int(from))
 		hash = sha256.Sum256(data)
-		//fmt.Printf("\r \n block %s getting hash %x, current nonce is %d\n", p.Block.GetData(), hash, from)
 		hashInt.SetBytes(hash[:])
 
 		if hashInt.Cmp(p.Target) == -1 {
-			fmt.Print("\n\n\n*****************************\n\n\n")
 			return int(from), hash[:], nil
 		} else {
 			from++
@@ -126,7 +124,6 @@ func getNonce(nonce *uint64) nonceChannel {
 }
 
 func (p *POW) Run() (int, []byte, error) {
-	fmt.Printf("Mining the block containing \"%s\"\n", p.Block.GetData())
 	resultNonce := make(chan nonceResultType, maxNonceWorker)
 	nonceChannelChan := make(chan nonceChannel, maxNonceWorker)
 	var nonce uint64 = 0
@@ -153,7 +150,6 @@ func (p *POW) Run() (int, []byte, error) {
 	}
 	return 0, nil, errors.New("oh shit no nonce")
 }
-
 func (p *POW) Validate() bool {
 	var bigInt big.Int
 
