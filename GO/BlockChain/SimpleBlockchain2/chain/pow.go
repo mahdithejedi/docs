@@ -25,6 +25,8 @@ var wg sync.WaitGroup
 
 var _lock sync.Mutex
 
+var found bool = false
+
 type POW struct {
 	Block  *block
 	Target *big.Int
@@ -73,6 +75,10 @@ func (p *POW) run(nonceRange chan nonceChannel, nonceResult chan nonceResultType
 	defer wg.Done()
 	for {
 		_lock.Lock()
+		if found {
+			_lock.Unlock()
+			return
+		}
 		newRange := <-nonceRange
 		_lock.Unlock()
 		nonce, result, error := p.proof(newRange.from, newRange.to)
@@ -86,6 +92,7 @@ func (p *POW) run(nonceRange chan nonceChannel, nonceResult chan nonceResultType
 				nonce: nonce,
 				hash:  result,
 			}
+			found = true
 			_lock.Unlock()
 			break
 		}
@@ -124,6 +131,8 @@ func getNonce(nonce *uint64) nonceChannel {
 }
 
 func (p *POW) Run() (int, []byte, error) {
+	//make sure found is false at first
+	found = false
 	resultNonce := make(chan nonceResultType, maxNonceWorker)
 	nonceChannelChan := make(chan nonceChannel, maxNonceWorker)
 	var nonce uint64 = 0

@@ -40,6 +40,10 @@ func main() {
 	blockchain.NewBlock(&chainData{data: "Second"})
 	blockchain.NewBlock(&chainData{data: "Third"})
 	blockchain.NewBlock(&chainData{data: "Fourth"})
+	blockchain.NewBlock(&chainData{data: "Fifth"})
+	blockchain.NewBlock(&chainData{data: "Sixth"})
+	blockchain.NewBlock(&chainData{data: "Seventh"})
+	blockchain.NewBlock(&chainData{data: "Eights"})
 	for _, block := range blockchain.GetBlocks() {
 		pow := chain.NewPOW(block)
 		fmt.Println("block", (*block).GetData(), "validation status", pow.Validate())
