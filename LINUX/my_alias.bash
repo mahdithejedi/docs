@@ -1,3 +1,6 @@
+#   *********
+#     GIT
+#   *********
 alias p='git pull'
 alias f='git fetch'
 alias fa='git fetch --all'
