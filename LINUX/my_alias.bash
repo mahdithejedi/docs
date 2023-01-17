@@ -18,11 +18,15 @@ function push() {
     done
 }
 
+alias m='git merge'
 alias ma='git merge --abort'
 
 alias ba='git branch --all'
 
 alias c='git checkout'
+
+alias sts='git stash save'
+alias st='git stash'
 
 function pycache() {
     find . | grep -E "(/__pycache__$|\.pyc$|\.pyo$)" | xargs rm -rf
