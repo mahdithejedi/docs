@@ -1,3 +1,11 @@
 {
-  "name": "hardhat-project"
+  "name": "hardhat-project",
+  "devDependencies": {
+    "hardhat": "^2.12.2",
+    "mocha": "^10.2.0",
+    "web3": "^1.8.1"
+  },
+  "dependencies": {
+    "ganache-cli": "^6.12.2"
+  }
 }
