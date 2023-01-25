@@ -34,9 +34,22 @@ function pycache() {
 
 
 
+# Arsenal
+alias a='arsenal'
+
 # ***** HOW TO RUN
 #if [ -f ~/.my_alias.sh ]; then
 #        source ~/.my_alias.sh
 #else
 #        print "Linked my_alias not found"
 #fi
+
+
+# Unset an Env file
+function UnsetEnv() {
+  unset $(more "$1" | awk -F= '{print $1}' | xargs)
+}
+
+function SetEnv(){
+  export $(xargs < "$1" )
+}
