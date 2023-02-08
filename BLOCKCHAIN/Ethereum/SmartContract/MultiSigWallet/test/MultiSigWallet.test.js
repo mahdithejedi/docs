@@ -1,55 +1,63 @@
 const mocha = require('mocha')
 const assert = require('assert')
 const Web3 = require('web3')
-const ganache = require('ganache-cli')
+// const ganache = require('ganache-cli')
 const hardhat = require("hardhat");
-const web3 = new Web3(ganache.provider())
+const ethers = hardhat.ethers
+const chai = require('chai')
+const expect = chai.expect
+// const web3 = new Web3(ganache.provider())
 
-let MultiSigWallet
+// let MultiSigWallet
 let creator
 let signers
 let contract
 
 
+const DUPLICATE_ERROR = "Duplicate Owner"
 
+getRandom = (max) => {
+    return Math.floor(Math.random() * max)
+}
+getNewWallet = () => {
+    return ethers.Wallet.createRandom(getRandom(12000))
+}
 
-let DUPLICATE_ERROR = "Duplicate Owner"
-
-
-async function deploy(){
+async function deploy(owners, counter) {
     const MultiSigWalletFactory = await hardhat.ethers.getContractFactory("MultiSigWallet");
-    console.log("Factory", MultiSigWalletFactory);
-    const MultiSigWallet = await MultiSigWalletFactory.deploy()
-    console.log("Wallet", MultiSigWallet);
+    const MultiSigWallet = await MultiSigWalletFactory.deploy(owners, counter)
     await MultiSigWallet.deployed()
     return MultiSigWallet
 }
 
 beforeEach(async () => {
-    MultiSigWallet = await deploy();
-    creator = web3.eth.accounts[0];
+    creator = getNewWallet();
     signers = {
-        'first': web3.eth.accounts[1],
-        'second': web3.eth.accounts[2],
-        'third': web3.eth.accounts
+        'first': getNewWallet(),
+        'second': getNewWallet(),
+        'third': getNewWallet()
     }
-    contract = await new web3.eth.Contract(MultiSigWallet.abi).deploy({
-        'owner_': [signers.first, signers.second, signers.third],
-        'counter_': 3
-    })
-    console.log("Address is", MultiSigWallet)
+    contract = await deploy(
+        [signers.first.address, signers.second.address, signers.third.address],
+        3
+    )
+    console.log("Contract deployed -> Address is", contract.address)
 
 })
 
 describe("Constructor", async () => {
     it("Duplicate error", async () => {
-        try {
-            await new web3.eth.Contract(abi).deploy({
-                'owner_': [signers.first, signers.second, signers.second],
-                'counter_': 3
-            })
-        } catch (error) {
-            assert.strictEqual(error, DUPLICATE_ERROR)
-        }
+        await expect(await deploy(
+            [signers.first.address, signers.second.address, signers.second.address],
+            3
+        )).to.revertedWith(DUPLICATE_ERROR)
+        // try {
+        //     await deploy(
+        //         [signers.first.address, signers.second.address, signers.second.address],
+        //         3
+        //     )
+        // } catch (error) {
+        //     assert.strictEqual(error, DUPLICATE_ERROR)
+        // }
     })
 })

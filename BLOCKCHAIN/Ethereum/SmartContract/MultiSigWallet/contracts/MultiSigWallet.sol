@@ -30,7 +30,7 @@ contract MultiSigWallet {
     constructor(address[] memory owner_, uint8 counter_) {
         Owners[msg.sender] = true;
         _add_owner_multiple(owner_);
-        require(counter_ < owner_.length, "Owners are less thant validated count");
+        require(counter_ <= owner_.length, "Owners are less thant validated count");
         validator_count = counter_;
     }
 
