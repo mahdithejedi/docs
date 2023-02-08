@@ -38,3 +38,24 @@ function UnsetEnv() {
 function SetEnv(){
   export $(xargs < "$1" )
 }
+
+function ResetEnv(){
+  UnsetEnv "$@"
+  SetEnv "$@"
+}
+
+function _openPorts() {
+    egrep -e '[[:digit:]]*\/' /etc/services | awk '{print $2}' | cut -d "/" -f 1
+}
+
+function ports(){
+  _openPorts | xargs
+}
+#
+#function portServiceName(){
+#  port=_openPorts | grep $1
+#  if [[ port ]]
+#  then
+#    grep ''
+#}
+#}
