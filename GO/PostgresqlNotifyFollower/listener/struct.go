@@ -7,11 +7,11 @@ import (
 )
 
 type Config struct {
-	host     string
-	port     string
-	dbName   string
-	username string
-	password string
+	Host     string
+	Port     string
+	DBName   string
+	Username string
+	Password string
 	//triggerName string
 }
 
@@ -36,11 +36,11 @@ func unmarshalConfig(data []byte) *Config {
 
 func dispatch(section *ini.Section) *Config {
 	return &Config{
-		host:     getValueWithDefault(section, "host", "localhost"),
-		port:     getValueWithDefault(section, "port", "5432"),
-		username: getValueWithDefault(section, "username", "admin"),
-		password: getValueWithDefault(section, "password", "admin"),
-		dbName:   getValue(section, "dbname"),
+		Host:     getValueWithDefault(section, "host", "localhost"),
+		Port:     getValueWithDefault(section, "port", "5432"),
+		Username: getValueWithDefault(section, "username", "admin"),
+		Password: getValueWithDefault(section, "password", "admin"),
+		DBName:   getValue(section, "dbname"),
 	}
 }
 
