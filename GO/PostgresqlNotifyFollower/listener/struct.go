@@ -4,15 +4,20 @@ import (
 	"Notifier/helpers"
 	"gopkg.in/ini.v1"
 	"os"
+	"strconv"
+	"time"
 )
 
 type Config struct {
-	Host     string
-	Port     string
-	DBName   string
-	Username string
-	Password string
-	//triggerName string
+	Host         string
+	Port         string
+	DBName       string
+	Username     string
+	Password     string
+	MinReconnect time.Duration
+	MaxReconnect time.Duration
+	TriggerName  string
+	WorkerCount  int
 }
 
 func LoadConfig(path string) *Config {
@@ -41,7 +46,29 @@ func dispatch(section *ini.Section) *Config {
 		Username: getValueWithDefault(section, "username", "admin"),
 		Password: getValueWithDefault(section, "password", "admin"),
 		DBName:   getValue(section, "dbname"),
+		MinReconnect: getValueWithDefaultAndConvert(section, "minReconnect", "10", func(data string) interface{} {
+			duration, err := strconv.Atoi(data)
+			helpers.PureCheckErr(err)
+			return time.Duration(duration) * time.Second
+		}).(time.Duration),
+		MaxReconnect: getValueWithDefaultAndConvert(section, "minReconnect", "60", func(data string) interface{} {
+			duration, err := strconv.Atoi(data)
+			helpers.PureCheckErr(err)
+			return time.Duration(duration) * time.Second
+		}).(time.Duration),
+		TriggerName: getValue(section, "triggerName"),
+		WorkerCount: getValueWithDefaultAndConvert(section, "workerCount", "5", func(data string) interface{} {
+			count, err := strconv.Atoi(data)
+			helpers.PureCheckErr(err)
+			return count
+		}).(int),
 	}
+}
+
+func getValueWithDefaultAndConvert(section *ini.Section, key string, defaultValue string, converter func(data string) interface{}) interface{} {
+	res := getValueWithDefault(section, key, defaultValue)
+	return converter(res)
+
 }
 
 func getValueWithDefault(section *ini.Section, key string, defaultValue string) string {

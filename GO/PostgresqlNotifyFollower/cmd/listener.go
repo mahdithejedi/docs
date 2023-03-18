@@ -35,7 +35,7 @@ var listenerCmd = &cobra.Command{
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		config := listener.LoadConfig("/home/m.moosavi/Desktop/Projects/docs/GO/PostgresqlNotifyFollower/conf.ini")
-		listener.Run(db.Connect(config))
+		listener.Run(config, db.Connect(config))
 	},
 }
 

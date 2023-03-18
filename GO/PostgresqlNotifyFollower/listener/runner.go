@@ -2,16 +2,16 @@ package listener
 
 import (
 	"Notifier/helpers"
-	"database/sql"
 	"fmt"
+	"github.com/lib/pq"
 )
 
-func Run(db *sql.DB) {
-	fmt.Println("Going to run")
-	row, err := db.Query("SELECT NOW();")
-	helpers.PureCheckErr(err)
-	var res string
-	row.Next()
-	row.Scan(&res)
-	fmt.Println(res)
+func Run(config *Config, db *pq.Listener) {
+	err := db.Listen(config.TriggerName)
+	helpers.CheckErr("Error while listening to trigger", err)
+	select {
+	case dbInfo := <-db.Notify:
+		fmt.Println(dbInfo.Channel, string(dbInfo.Extra))
+	}
+
 }
