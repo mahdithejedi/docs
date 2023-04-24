@@ -1,4 +1,4 @@
-package db
+package postgresql
 
 import (
 	"Notifier/helpers"
@@ -6,7 +6,6 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/lib/pq"
-	_ "github.com/lib/pq"
 	"strconv"
 )
 

@@ -1,16 +1,16 @@
 /*
 Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
 	"Notifier/helpers"
 	"Notifier/listener"
-	"Notifier/listener/db"
+	"Notifier/listener/db/postgresql"
 	"fmt"
 	"github.com/spf13/cobra"
 	"os"
+	"syscall"
 )
 
 var Version = "0.1-alpha"
@@ -25,7 +25,8 @@ func preRun(cmd *cobra.Command, args []string) {
 func run(cmd *cobra.Command, args []string) {
 	config := listener.LoadConfig("/home/m.moosavi/Desktop/Projects/docs/GO/PostgresqlNotifyFollower/conf.ini")
 	helpers.Lock()
-	listener.Run(config, db.Connect(config))
+	go postgresql.Handler(config, postgresql.Connect(config))
+
 }
 
 // listenerCmd represents the listener command
@@ -77,6 +78,22 @@ var listenerStatusCmd = &cobra.Command{
 			return
 		}
 		fmt.Fprintln(os.Stdout, "state is Stopped")
+	},
+}
+
+var listenerStopCmd = &cobra.Command{
+	Use:     "stop",
+	Aliases: []string{"disable", "off"},
+	Long:    "",
+	Version: Version,
+	PreRun: func(cmd *cobra.Command, args []string) {
+		if helpers.IsLock() == false {
+			helpers.RaiseStdErr("listener does not running")
+		}
+	},
+	Run: func(cmd *cobra.Command, args []string) {
+		// sending signal
+		syscall.Kill(helpers.ReadLock(), syscall.SIGINT)
 	},
 }
 
