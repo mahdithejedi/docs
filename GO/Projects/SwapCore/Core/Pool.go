@@ -2,6 +2,7 @@ package Core
 
 import (
 	"context"
+	"fmt"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -38,23 +39,16 @@ func (p *PoolHandler) getPureConnection() *rpc.Client {
 }
 
 func (p *PoolHandler) Subscribe() {
-	con := p.getPureConnection()
-	var result string
-	lib.CheckError(
-		con.Call(
-			&result, "eth_newFilter"
-			)
-	)
-	//sub, log := p.getSubscription()
-	//for {
-	//	select {
-	//	case subErr := <-sub.Err():
-	//		lib.CheckError(subErr)
-	//	case msg := <-log:
-	//		fmt.Println(msg)
-	//
-	//	}
-	//}
+	sub, log := p.getSubscription()
+	for {
+		select {
+		case subErr := <-sub.Err():
+			lib.CheckError(subErr)
+		case msg := <-log:
+			fmt.Println(msg)
+
+		}
+	}
 
 }
 
