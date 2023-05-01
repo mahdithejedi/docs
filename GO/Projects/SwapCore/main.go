@@ -1,9 +1,8 @@
 package main
 
 import (
-	"github.com/ethereum/go-ethereum/common"
 	"swapcore/Core"
-	"swapcore/lib"
+	"swapcore/Core/Binance"
 )
 
 //var BSCClient *ethclient.Client
@@ -14,11 +13,18 @@ import (
 //lib.CheckError(err)
 //}
 
-func main() {
+//var handler Core.PoolHandler
+
+func watcher() {
 	handler := Core.PoolHandler{
-		PoolAddress: common.HexToAddress(lib.BSCConfig.DeployerAddress),
-		NodeAddress: lib.BSCConfig.NodeAddress,
+		PoolAddress: Binance.BSCConfig.GetDeployerAddress(),
+		NodeAddress: Binance.BSCConfig.GetNodeAddress(),
 	}
 	handler.Subscribe()
 	defer handler.Con.Close()
+}
+
+func main() {
+	watcher()
+	//defer func() { handler.Con.Close() }()
 }

@@ -2,13 +2,13 @@ package Core
 
 import (
 	"context"
-	"fmt"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"net/rpc"
-	"swapcore/lib"
+	"swapcore/Core/Binance"
+	"swapcore/Core/lib"
 )
 
 type PoolHandler struct {
@@ -45,8 +45,7 @@ func (p *PoolHandler) Subscribe() {
 		case subErr := <-sub.Err():
 			lib.CheckError(subErr)
 		case msg := <-log:
-			fmt.Println(msg)
-
+			Binance.Run(msg)
 		}
 	}
 
