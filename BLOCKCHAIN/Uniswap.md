@@ -9,3 +9,13 @@
 [Medium Article](https://dexenetwork.medium.com/what-is-slippage-and-why-does-it-matter-uniswap-example-43e32d712651)
 <br />
 
+[//]: # (__UNISWAP__)
+[//]: # (__TWAP_ORACLE__)
+[//]: # (__TWAP_ORACLE_UNISWAP__)
+
+
+[//]: # (__UNISWAP__)
+[//]: # (__UNISWAP_PRICING_FUNCTION__)
+### Uniswap Pricing Function
+
+
