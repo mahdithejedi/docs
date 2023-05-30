@@ -56,6 +56,6 @@ func Decode(eventMsg types.Log) *Event {
 	}
 	event := Event{}
 	lib.CheckError(contractABI.UnpackIntoInterface(&event, EventType, eventMsg.Data))
-	fmt.Println("Decoded data is", event.From, "to", event.To, "With amount", event.Value)
+	//fmt.Println("Decoded data is", event.From, "to", event.To, "With amount", event.Value)
 	return &event
 }
