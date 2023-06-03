@@ -24,4 +24,13 @@ Additionally, Jordan can also set a max fee (maxFeePerGas) for the transaction. 
     * One which result in message calls
     * One  which result in contract creation
 
+[//]: # (__ETHEREUM__)
+[//]: # (__SANDWICH_ATTACK__)
+[//]: # (__SANDWICHATTACK__)
+### Ethereum Sandwich attack
+
+In a sandwich attack, a nefarious trader looks for a pending transaction on the network of their choice, e.g., Ethereum. The sandwiching occurs by placing one order right before the trade and one right after it. In essence, the attacker will front-run and back-run simultaneously, with the original pending transaction sandwiched in between. <small> [source](https://coinmarketcap.com/alexandria/article/what-are-sandwich-attacks-in-defi-and-how-can-you-avoid-them) <small/>
+
+
+
 
