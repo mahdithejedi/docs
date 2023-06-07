@@ -1,0 +1,13 @@
+{
+  "name": "hardhat-project",
+  "devDependencies": {
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "hardhat": "^2.12.2",
+    "mocha": "^10.2.0",
+    "web3": "^1.8.1"
+  },
+  "dependencies": {
+    "chai": "^4.3.7",
+    "ganache-cli": "^6.12.2"
+  }
+}

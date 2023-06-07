@@ -1,0 +1,1 @@
+{\displaystyle A\mathbf {u} =\lambda \mathbf {u} .}

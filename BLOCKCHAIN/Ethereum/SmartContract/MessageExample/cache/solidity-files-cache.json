@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/home/m.moosavi/Desktop/Projects/docs/BLOCKCHAIN/Ethereum/SmartContract/MessageExample/contracts/Index.sol": {
+      "lastModificationDate": 1666083421084,
+      "contentHash": "a4b8212825ae4d7961a539fb87ca167e",
+      "sourceName": "contracts/Index.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.8.17"
+      ],
+      "artifacts": [
+        "Index"
+      ]
+    }
+  }
+}

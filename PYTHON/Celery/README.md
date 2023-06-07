@@ -1,0 +1,1 @@
+[Django Celery Dynamic Beats](https://medium.com/swlh/dynamic-task-scheduling-with-django-celery-beat-f2591d52e15)

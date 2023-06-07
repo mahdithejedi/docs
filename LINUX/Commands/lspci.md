@@ -1,0 +1,1 @@
+all the hardwares which connected throught **PCI** port

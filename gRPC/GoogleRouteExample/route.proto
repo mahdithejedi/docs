@@ -1,0 +1,18 @@
+syntax="proto3";
+
+package log_analysis;
+
+service RouteGuide{
+  rpc GetTimings(stream pure_data) returns (stream structured_data);
+
+}
+
+message structured_data{
+  string service_name = 1;
+  float uptime_duration = 2;
+  float request_duration = 3;
+}
+
+message pure_data{
+  map<string, string> data = 1;
+}
