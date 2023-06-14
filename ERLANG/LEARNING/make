@@ -1,0 +1,26 @@
+run_erlang:
+    @if [ -z "$(ERLANG_FILE)" ]; then \
+        echo "Usage: make run_erlang ERLANG_FILE=<erlang_file>"; \
+        exit 1; \
+    fi
+    @$(MAKE) compile_erlang ERLANG_FILE=$(ERLANG_FILE)
+    @$(MAKE) execute_erlang ERLANG_FILE=$(ERLANG_FILE)
+
+compile_erlang:
+    @if [ -z "$(ERLANG_FILE)" ]; then \
+        echo "Usage: make compile_erlang ERLANG_FILE=<erlang_file>"; \
+        exit 1; \
+    fi
+    @echo "Compiling $(ERLANG_FILE)..."
+    @erlc $(ERLANG_FILE)
+
+execute_erlang:
+    @if [ -z "$(ERLANG_FILE)" ]; then \
+        echo "Usage: make execute_erlang ERLANG_FILE=<erlang_file>"; \
+        exit 1; \
+    fi
+    @echo "Running $(ERLANG_FILE)..."
+    @filename=$$(basename "$(ERLANG_FILE)" .erl); \
+    erl -noshell -eval "$$filename:start(), init:stop()."
+
+.PHONY: run_erlang compile_erlang execute_erlang
