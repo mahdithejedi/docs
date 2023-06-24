@@ -36,6 +36,27 @@ feeds. <small> [source](https://docs.uniswap.org/contracts/v2/concepts/core-conc
 [TWAP Contract Exmaple](https://github.com/Uniswap/v2-periphery/blob/master/contracts/examples/ExampleOracleSimple.sol)
 
 
+### Uniswap V3 Oracle
+#### SqrtRation
+* IN uniswap V2 we calculate _TWAP_, in V3 the return of TWAP is _tick_. what it means is that the answer of the
+<br />
+**`(TickCommulative2 - TickCommulative1) / (Timestamp2 - Timestamp1) = tick-TWAP`**
+
+* On the other-hand we have this formula in which it calculates tick:
+**`(1.0001)^tick=price`**
+* This is the reason behind the function of [`getSqrtRatioAtTick`](https://github.com/Uniswap/v3-core/blob/main/contracts/libraries/TickMath.sol#L23C14-L23C32)
+
+
+## More Sources and References
+[Medium-A Guide on Uniswap v3 TWAP Oracle](https://tienshaoku.medium.com/a-guide-on-uniswap-v3-twap-oracle-2aa74a4a97c5)
+<br />
+
+
+
+
+
+
+
 
 
 
