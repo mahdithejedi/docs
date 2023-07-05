@@ -85,6 +85,16 @@ with a correlation with
 * This is the reason behind the function
   of [`getSqrtRatioAtTick`](https://github.com/Uniswap/v3-core/blob/main/contracts/libraries/TickMath.sol#L23C14-L23C32)
 
+# [Uniswap V3 Book](https://uniswapv3book.com/)
+
+The Uniswap V3 books is followed in the [`Uniswap V3 Book`](./Uniswap%20V3%20Book) Directory.
+
+<iframe src="https://www.desmos.com/calculator/m1dlhizkr5?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+
+### Ticks and Ranges
+
+Liquidity providers can provide liquidity in a range between any two ticks (which need not be adjacent)
+
 ## More Sources and References
 
 [Medium-A Guide on Uniswap v3 TWAP Oracle](https://tienshaoku.medium.com/a-guide-on-uniswap-v3-twap-oracle-2aa74a4a97c5)
