@@ -18,3 +18,8 @@ function DockerRun(){
     esac
   done
 }
+
+
+function DockerNetworkIP(){
+  docker network inspect "$(docker network ls -q)" | jq -r '.[] | .Name + ": " + .IPAM.Config[].Subnet'
+}
