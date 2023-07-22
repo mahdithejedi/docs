@@ -91,7 +91,27 @@ The Uniswap V3 books is followed in the [`Uniswap V3 Book`](./Uniswap%20V3%20Boo
 
 <iframe src="https://www.desmos.com/calculator/m1dlhizkr5?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
 
-### Ticks and Ranges
+1. The purple line is the curve, the axes are the reserves of a pool (notice that they’re equal at the start price).
+2. tart price is 1.
+3. We’re selling 200 of token 0. If we use only the start price, we expect to get 200 of token 1. **However, the
+  execution price is 0.666, so we get only 133.333 of token 1!**
+
+The law of supply and demand tells us that when demand is high (and supply is constant) the price is also high. And when
+demand is low, the price is also lower. This is how markets work. And, magically, the constant product function
+implements this mechanism! Demand is defined by the amount you want to buy, and supply is the pool reserves. When you
+want to buy a big amount relative to pool reserves the price is higher than when you want to buy a smaller amount. Such
+a simple formula guarantees such a powerful mechanism!
+
+### Slope of actual price
+
+1. Before a trade, there’s a spot price. It’s equal to the relation of reserves, y/x or x/y depending on the
+  direction of the trade. This price is also the slope of the tangent line at the starting point.
+2. After a trade, there’s a new spot price, at a different point on the curve. And it’s the slope of the tangent line at this new point.
+3. The actual price of the trade is the slope of the line connecting the two points!
+
+### Position and Tick
+Position: Positions represent an owner address' liquidity between a lower and upper tick boundary 
+
 
 Liquidity providers can provide liquidity in a range between any two ticks (which need not be adjacent)
 
