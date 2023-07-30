@@ -170,6 +170,25 @@ Finally, the syscall is over and the kernel returns to userland. It restores the
 jumps to the stored instruction pointer. That instruction pointer is now the starting point of the new program (or the
 ELF interpreter) and the current process has been replaced!
 
+# Fork
+
+Anyways, Unix programs launch new programs by calling __fork__ and then immediately running __execve__ in the child
+process. This is called the _fork-exec_ pattern.
+<br />
+You might’ve noticed that duplicating a process’s memory only to immediately discard all of it when loading a different
+program sounds a bit inefficient. Luckily, we have an MMU. Duplicating data in physical memory is the slow part, not
+duplicating page tables, so we simply don’t duplicate any RAM: we create a copy of the old process’s page table for the
+new process and keep the mapping pointing to the same underlying physical memory.
+<br />
+Introducing COW (copy on write) pages. With **COW pages**, both processes read from the same physical addresses as long
+as they don’t attempt to write to the memory
+<br />
+COW is implemented, like many fun things, with paging hacks and hardware interrupt handling. After fork clones the
+parent, it flags all of the pages of both processes as read-only. When a program writes to memory, the write fails
+because the memory is read-only. This triggers a segfault (the hardware interrupt kind) which is handled by the kernel.
+The kernel which duplicates the memory, updates the page to allow writing, and returns from the interrupt to reattempt
+the write.
+
 ## Sources
 
 [Wikipedia Preemption](https://en.wikipedia.org/wiki/Preemption_(computing))
