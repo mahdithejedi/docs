@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"encoding/json"
-	"log"
+	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
@@ -37,10 +37,9 @@ func main() {
 			if json.Valid([]byte(data)) {
 				Dispatch(data)
 			} else {
-				log.Printf("Received %s\n", data)
+				GlobalOutPutHandler <- fmt.Sprintf("Received %s !!!!!!!!!!!!!@@@@@@@@@@@@@############", data)
 			}
 		case <-SignalChan:
-			log.Printf("Done!")
 			return
 		}
 	}

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"strings"
 )
 
 type Node struct {
@@ -43,10 +44,16 @@ func (n *NodeMap) AddNode(Body InputBody, output OutputMsg) {
 		ReceiveChan: make(chan InputMsg),
 		SendChan:    GlobalOutPutHandler,
 	}
-	GlobalOutPutHandler <- replyInitOkMsg(Body.MsgID, output)
 	GlobalOutPutHandler <- fmt.Sprintf("Node %s initialized", Body.NodeID)
-	//	{:dest=>"c0", :src=>"n1", :body=>{:type=>"init_ok", :in_reply_to=>1}}
+	GlobalOutPutHandler <- replyInitOkMsg(Body.MsgID, output)
 
+}
+
+func formatOutputMsg(msg string) string {
+	if strings.HasSuffix(msg, "\n") {
+		return msg[len(msg) : len(msg)-len("\n")]
+	}
+	return msg
 }
 
 func (n *NodeMap) InitOutputHandler() {
@@ -55,7 +62,9 @@ func (n *NodeMap) InitOutputHandler() {
 		if msg == "0" {
 			break
 		}
-		log.Printf(msg + "\n")
+		var err error
+		log.Println(formatOutputMsg(msg))
+		LogError(err)
 	}
 	defer close(GlobalOutPutHandler)
 }
