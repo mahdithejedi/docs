@@ -4,6 +4,7 @@ type Node struct {
 	ID          string
 	ReceiveChan chan InputMsg
 	SendChan    chan string
+	latestMsgID int
 }
 
 type NodeMap map[string]*Node
@@ -15,17 +16,32 @@ func (n *Node) Close() {
 	close(GlobalLogChannel)
 }
 
-func (n *NodeMap) AddNode(Body InputBody) bool {
-	if (*n)[Body.NodeID] != nil {
+func (n *Node) Echo(msg string) string {
+	return msg
+}
+
+func (n *Node) MsgID() (_id int) {
+	_id = (*n).latestMsgID
+	n.latestMsgID++
+	return
+}
+
+func (n *NodeMap) AddNode(NodeID string) bool {
+	if (*n)[NodeID] != nil {
 		return false
 	}
-	(*n)[Body.NodeID] = &Node{
-		ID:          Body.NodeID,
+	(*n)[NodeID] = &Node{
+		ID:          NodeID,
 		ReceiveChan: make(chan InputMsg),
 		SendChan:    GlobalLogChannel,
+		latestMsgID: 1,
 	}
 	return true
 
+}
+
+func (n *NodeMap) GetNode(NodeID string) *Node {
+	return (*n)[NodeID]
 }
 
 func (n *NodeMap) Close() {

@@ -7,9 +7,11 @@ import (
 
 type InputBody struct {
 	Type    string   `json:"type"`
-	NodeID  string   `json:"node_id"`
-	NodeIds []string `json:"node_ids"`
+	NodeID  string   `json:"node_id,omitempty"`
+	NodeIds []string `json:"node_ids,omitempty"`
 	MsgID   int      `json:"msg_id"`
+	// Instruction
+	Echo string `json:"echo,omitempty"`
 }
 
 type InputMsg struct {
@@ -23,6 +25,9 @@ type InputMsg struct {
 type OutputBody struct {
 	Type      string `json:"type"`
 	InReplyTo int    `json:"in_reply_to"`
+	// Instructions
+	MsgID int    `json:"msg_id,omitempty"`
+	Echo  string `json:"echo,omitempty"`
 }
 
 type OutputMsg struct {
@@ -57,8 +62,8 @@ func (m *Message) unpack(data string) {
 	m.Input.BodyStruct = inputBody
 }
 
-func (m *Message) GetMessageType() MsgType {
-	return MsgType(m.Input.BodyStruct.Type)
+func (m *Message) GetMessageType() MsgInputType {
+	return MsgInputType(m.Input.BodyStruct.Type)
 }
 
 func (m *Message) Marshal() (response []byte) {

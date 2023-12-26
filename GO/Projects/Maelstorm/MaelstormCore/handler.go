@@ -19,22 +19,28 @@ var GlobalWriterChannel = make(chan []byte, MaxBufferSize)
 var Terminal = make(chan string)
 var SignalChan = make(chan os.Signal, 1)
 
-type HandlerFunction func(message InputBody) OutputBody
+type HandlerFunction func(nodeID string, message InputBody) OutputBody
 
-type IHandler interface {
-	AddHandler(MsgType, HandlerFunction)
-}
-
-type MsgType string
+type MsgInputType string
+type MsgOutputType string
 
 var (
-	InitOk MsgType = "init_ok"
-	Init   MsgType = "init"
+	Init MsgInputType = "init"
+	Echo MsgInputType = "echo"
 )
+
+var (
+	InitOk MsgOutputType = "init_ok"
+	EchoOk MsgOutputType = "echo_ok"
+)
+
+type IHandler interface {
+	AddHandler(MsgInputType, HandlerFunction)
+}
 
 type Handler struct {
 	IHandler
-	handlers map[MsgType]HandlerFunction
+	handlers map[MsgInputType]HandlerFunction
 	Input    io.Reader
 	Output   io.Writer
 }
@@ -105,7 +111,7 @@ func (h *Handler) process(data string) {
 	GlobalLogChannel <- fmt.Sprintf("Received %s", data)
 	m.Output.Dest = m.Input.Src
 	m.Output.Src = m.Input.Dest
-	m.Output.BodyStruct = h.handlers[m.GetMessageType()](m.Input.BodyStruct)
+	m.Output.BodyStruct = h.handlers[m.GetMessageType()](m.Input.Dest, m.Input.BodyStruct)
 	h.reply(m.Marshal())
 }
 
@@ -132,13 +138,13 @@ func (h *Handler) Run() {
 	defer h.destruct()
 }
 
-func (h *Handler) AddHandler(name MsgType, function HandlerFunction) {
+func (h *Handler) AddHandler(name MsgInputType, function HandlerFunction) {
 	h.handlers[name] = function
 }
 
 func InitHandler() *Handler {
 	return &Handler{
-		handlers: make(map[MsgType]HandlerFunction),
+		handlers: make(map[MsgInputType]HandlerFunction),
 		Input:    os.Stdin,
 		Output:   os.Stdout,
 	}

@@ -1,47 +1,31 @@
 package main
 
 import (
-	"bufio"
-	"encoding/json"
 	"fmt"
-	"os"
-	"os/signal"
-	"syscall"
+	core "maelstormcore"
 )
 
-var Terminal = make(chan string)
-var SignalChan = make(chan os.Signal, 1)
-
-func initTerminalHandler() {
-	scanner := bufio.NewScanner(os.Stdin)
-	for scanner.Scan() {
-		Terminal <- scanner.Text()
-	}
-}
-
-func initSignalHandler() {
-	signal.Notify(SignalChan, syscall.SIGINT)
-}
-
 func main() {
-	go initTerminalHandler()
-	initSignalHandler()
-	go Nodes.InitOutputHandler()
-	defer func() {
-		close(Terminal)
-		GlobalOutPutHandler <- "0"
-	}()
-	for {
-		select {
-		case data := <-Terminal:
-			if json.Valid([]byte(data)) {
-				Dispatch(data)
-			} else {
-				GlobalOutPutHandler <- fmt.Sprintf("Received %s !!!!!!!!!!!!!@@@@@@@@@@@@@############", data)
-			}
-		case <-SignalChan:
-			return
+	h := core.InitHandler()
+	h.AddHandler(core.Init, func(NodeID string, message core.InputBody) (output core.OutputBody) {
+		if core.Nodes.AddNode(NodeID) == true {
+			core.GlobalLogChannel <- fmt.Sprintf("Node %s initiated", message.NodeID)
 		}
-	}
+		output = core.OutputBody{
+			Type:      string(core.InitOk),
+			InReplyTo: message.MsgID,
+		}
+		return
+	})
+	h.AddHandler(core.Echo, func(NodeID string, message core.InputBody) core.OutputBody {
+		node := core.Nodes.GetNode(NodeID)
+		return core.OutputBody{
+			Type:      string(core.EchoOk),
+			MsgID:     node.MsgID(),
+			InReplyTo: message.MsgID,
+			Echo:      node.Echo(message.Echo),
+		}
+	})
+	h.Run()
 
 }
