@@ -43,7 +43,6 @@ func (h *Handler) initTerminalHandler() {
 	scanner := bufio.NewScanner(h.Input)
 	for scanner.Scan() {
 		txt := scanner.Text()
-		GlobalLogChannel <- fmt.Sprintf("Len is %d", len(strings.TrimSpace(txt)))
 		if len(strings.TrimSpace(txt)) > 0 {
 			Terminal <- txt
 		}
@@ -86,7 +85,7 @@ func (h *Handler) run() {
 			if json.Valid([]byte(data)) {
 				h.process(data)
 			} else if data == "" {
-				GlobalLogChannel <- fmt.Sprintf("HIII1 !%s!\n", data)
+				continue
 			} else {
 				LogError(
 					errors.New(
@@ -103,7 +102,7 @@ func (h *Handler) run() {
 
 func (h *Handler) process(data string) {
 	m := Dispatch(data)
-	GlobalLogChannel <- fmt.Sprintf("Received %s", m)
+	GlobalLogChannel <- fmt.Sprintf("Received %s", data)
 	m.Output.Dest = m.Input.Src
 	m.Output.Src = m.Input.Dest
 	m.Output.BodyStruct = h.handlers[m.GetMessageType()](m.Input.BodyStruct)

@@ -53,7 +53,6 @@ func (i *InputMsg) String() string {
 func (m *Message) unpack(data string) {
 	LogError(json.Unmarshal([]byte(data), &m.Input))
 	inputBody := InputBody{}
-	GlobalLogChannel <- fmt.Sprintf("Received %s", m.Input.String())
 	LogError(json.Unmarshal(m.Input.Body, &inputBody))
 	m.Input.BodyStruct = inputBody
 }
@@ -67,6 +66,7 @@ func (m *Message) Marshal() (response []byte) {
 	m.Output.Body, err = json.Marshal(m.Output.BodyStruct)
 	LogError(err)
 	response, err = json.Marshal(m.Output)
+	LogError(err)
 	return
 }
 
