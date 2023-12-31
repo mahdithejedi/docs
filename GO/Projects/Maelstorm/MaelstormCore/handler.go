@@ -21,21 +21,30 @@ var SignalChan = make(chan os.Signal, 1)
 
 type HandlerFunction func(nodeID string, message InputBody) OutputBody
 
+//type HandlerChannelFunction func(nodeID string, message chan InputBody) chan OutputBody
+
+//func(string, InputBody) OutputBody type
+
 type MsgInputType string
 type MsgOutputType string
 
 var (
-	Init MsgInputType = "init"
-	Echo MsgInputType = "echo"
+	Init      MsgInputType = "init"
+	Echo      MsgInputType = "echo"
+	Topology  MsgInputType = "topology"
+	Broadcast MsgInputType = "broadcast"
 )
 
 var (
-	InitOk MsgOutputType = "init_ok"
-	EchoOk MsgOutputType = "echo_ok"
+	InitOk      MsgOutputType = "init_ok"
+	EchoOk      MsgOutputType = "echo_ok"
+	TopologyOK  MsgOutputType = "topology_ok"
+	BroadcastOK MsgOutputType = "broadcast_ok"
 )
 
 type IHandler interface {
 	AddHandler(MsgInputType, HandlerFunction)
+	//AddChannelHandler(MsgInputType, HandlerChannelFunction)
 }
 
 type Handler struct {
@@ -43,6 +52,22 @@ type Handler struct {
 	handlers map[MsgInputType]HandlerFunction
 	Input    io.Reader
 	Output   io.Writer
+	AutoInit bool
+}
+
+func (h *Handler) Init() {
+	if h.AutoInit {
+		h.AddHandler(Init, func(nodeID string, message InputBody) (output OutputBody) {
+			if Nodes.AddNode(nodeID) == true {
+				GlobalLogChannel <- fmt.Sprintf("Node %s initiated", message.NodeID)
+			}
+			output = OutputBody{
+				Type:      string(InitOk),
+				InReplyTo: message.MsgID,
+			}
+			return
+		})
+	}
 }
 
 func (h *Handler) initTerminalHandler() {
@@ -142,10 +167,13 @@ func (h *Handler) AddHandler(name MsgInputType, function HandlerFunction) {
 	h.handlers[name] = function
 }
 
-func InitHandler() *Handler {
-	return &Handler{
+func InitHandler(autoInit bool) *Handler {
+	_handler := &Handler{
 		handlers: make(map[MsgInputType]HandlerFunction),
 		Input:    os.Stdin,
 		Output:   os.Stdout,
+		AutoInit: autoInit,
 	}
+	_handler.Init()
+	return _handler
 }

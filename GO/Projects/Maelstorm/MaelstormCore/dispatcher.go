@@ -11,7 +11,10 @@ type InputBody struct {
 	NodeIds []string `json:"node_ids,omitempty"`
 	MsgID   int      `json:"msg_id"`
 	// Instruction
+	// Echo
 	Echo string `json:"echo,omitempty"`
+	// Topology
+	Topology map[string][]string `json:"topology,omitempty"`
 }
 
 type InputMsg struct {
