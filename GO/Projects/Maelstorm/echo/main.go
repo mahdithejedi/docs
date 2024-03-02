@@ -1,22 +1,19 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	core "maelstormcore"
+	"os"
 )
 
+func init() {
+	log.Printf("RUNNED!!!!!!")
+}
+
 func main() {
-	h := core.InitHandler()
-	h.AddHandler(core.Init, func(NodeID string, message core.InputBody) (output core.OutputBody) {
-		if core.Nodes.AddNode(NodeID) == true {
-			core.GlobalLogChannel <- fmt.Sprintf("Node %s initiated", message.NodeID)
-		}
-		output = core.OutputBody{
-			Type:      string(core.InitOk),
-			InReplyTo: message.MsgID,
-		}
-		return
-	})
+	log.Printf("NODES ADDRESS IS %s and process ID %d 1", &core.Nodes, os.Getppid())
+	h := core.InitHandler(true)
+	log.Printf("NODES ADDRESS IS %s and process ID %d 2", &core.Nodes, os.Getppid())
 	h.AddHandler(core.Echo, func(NodeID string, message core.InputBody) core.OutputBody {
 		node := core.Nodes.GetNode(NodeID)
 		return core.OutputBody{
@@ -26,6 +23,7 @@ func main() {
 			Echo:      node.Echo(message.Echo),
 		}
 	})
+	log.Printf("NODES ADDRESS IS %s and process ID %d 3", &core.Nodes, os.Getppid())
 	h.Run()
-
+	log.Printf("NODES ADDRESS IS %s and process ID %d 4", &core.Nodes, os.Getppid())
 }

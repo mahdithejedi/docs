@@ -59,7 +59,7 @@ func (h *Handler) Init() {
 	if h.AutoInit {
 		h.AddHandler(Init, func(nodeID string, message InputBody) (output OutputBody) {
 			if Nodes.AddNode(nodeID) == true {
-				GlobalLogChannel <- fmt.Sprintf("Node %s initiated", message.NodeID)
+				GlobalLogChannel <- fmt.Sprintf("Node %s initiated while all nodes are %#v", message.NodeID, Nodes.nodes)
 			}
 			output = OutputBody{
 				Type:      string(InitOk),
@@ -151,6 +151,7 @@ func (h *Handler) destruct() {
 }
 
 func (h *Handler) init() {
+	InitNodeHandler()
 	go h.initTerminalHandler()
 	h.initSignalHandler()
 	go h.initLogHandler()

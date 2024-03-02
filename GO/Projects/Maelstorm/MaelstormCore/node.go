@@ -3,6 +3,7 @@ package maelstormcore
 import (
 	"errors"
 	"fmt"
+	"log"
 	"sync"
 )
 
@@ -73,14 +74,22 @@ type NodeMap struct {
 	nodes map[string]*Node
 }
 
-var Nodes = &NodeMap{nodes: make(map[string]*Node)}
+var Nodes *NodeMap
+var runOnce sync.Once
+
+func InitNodeHandler() {
+	runOnce.Do(func() {
+		Nodes = &NodeMap{
+			nodes: make(map[string]*Node),
+		}
+	})
+}
 
 func (n *NodeMap) AddNode(NodeID string) bool {
 	_, exists := n.nodes[NodeID]
 	if exists {
 		return false
 	}
-
 	n.nodes[NodeID] = &Node{
 		ID:          NodeID,
 		ReceiveChan: make(chan InputMsg),
@@ -92,6 +101,7 @@ func (n *NodeMap) AddNode(NodeID string) bool {
 }
 
 func (n *NodeMap) GetNode(NodeID string) *Node {
+	log.Printf("ALL NODES ARE %#v while getting node %s", n.nodes, NodeID)
 	node, exists := n.nodes[NodeID]
 	if exists != true {
 		raiseNodeDoesNotExists(NodeID)

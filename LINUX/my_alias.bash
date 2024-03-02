@@ -18,6 +18,13 @@ source "$__DIR__"/BashAlias/Docker.bash
 echo "Docker commands imported"
 
 
+#   *********
+#     General
+#   *********
+source "$__DIR__"/BashAlias/general.bash
+echo "general commands imported"
+
+
 
 # Arsenal
 alias a='arsenal'
